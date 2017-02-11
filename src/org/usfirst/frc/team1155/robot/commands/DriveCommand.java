@@ -3,17 +3,16 @@ package org.usfirst.frc.team1155.robot.commands;
 
 import org.usfirst.frc.team1155.robot.Robot;
 import org.usfirst.frc.team1155.robot.subsystems.DriveSubsystem;
-
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
 public class DriveCommand extends Command {
 	
 	private Joystick movementStick;
-
     public DriveCommand(Joystick stick) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drive);
@@ -28,6 +27,7 @@ public class DriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	SmartDashboard.putNumber("GyroValue", Robot.drive.gyro.getAngle());
     	Robot.drive.setSpeed(-movementStick.getY());
     }
 

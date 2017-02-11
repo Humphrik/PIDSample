@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1155.robot;
 
-import org.usfirst.frc.team1155.robot.commands.AdjustByEncoder;
+import org.usfirst.frc.team1155.robot.commands.AdjustByGyro;
 import org.usfirst.frc.team1155.robot.commands.DriveCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,7 +16,7 @@ public class OI {
 	
 	public OI() {
 		stick = new Joystick(0);
-		new JoystickButton(stick, 3).whileHeld(new AdjustByEncoder());
+		new JoystickButton(stick, 3).whenPressed(new AdjustByGyro());
 		new JoystickButton(stick, 3).whenReleased(new DriveCommand(stick));
 	}
     //// CREATING BUTTONS
@@ -25,9 +25,14 @@ public class OI {
     // number it is.
     // Joystick stick = new Joystick(port);
     // Button button = new JoystickButton(stick, buttonNumber);
+	
+	// while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)while(true)
     
     // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
+    // by subclassing Button you can create custom trigger
+	
+	
+	// s and bind those to
     // commands the same as any other Button.
     
     //// TRIGGERING COMMANDS WITH BUTTONS
