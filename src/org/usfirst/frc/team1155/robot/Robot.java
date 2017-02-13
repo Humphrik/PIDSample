@@ -33,10 +33,11 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = null;
-        SmartDashboard.putNumber("EncoderValue", 0);
+        SmartDashboard.putNumber("GyroValue", 0);
         SmartDashboard.putDouble("P", 0.1);
         SmartDashboard.putDouble("I", 0.0);
         SmartDashboard.putDouble("D", 0.1);
+        SmartDashboard.putNumber("TurnAngle", 0);
     }
 	
 	public void disabledPeriodic() {

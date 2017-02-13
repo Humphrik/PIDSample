@@ -16,7 +16,7 @@ public class AdjustByGyro extends Command{
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void initialize() {
-		Robot.drive.startAdjustment(Robot.drive.gyro.getAngle());
+		Robot.drive.startAdjustment(Robot.drive.gyro.getAngle(), SmartDashboard.getNumber("TurnAngle"));
 		Robot.drive.getPIDController().setPID(SmartDashboard.getDouble("P"), SmartDashboard.getDouble("I"), SmartDashboard.getDouble("D"));
 	}
 
@@ -24,6 +24,7 @@ public class AdjustByGyro extends Command{
 	protected void execute() {
 		// TODO Auto-generated method stub
 		// System.out.println(Robot.drive.frontLeftMotor.getEncPosition());
+		SmartDashboard.putNumber("GyroValue", Robot.drive.gyro.getAngle());
 	}
 
 	@Override

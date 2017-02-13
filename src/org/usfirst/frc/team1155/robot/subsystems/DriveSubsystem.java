@@ -32,8 +32,9 @@ public class DriveSubsystem extends PIDSubsystem {
 		gyro.reset();
 	}
 
-	public void startAdjustment(double current) {
-		setSetpoint((int) (((current >= 0 ? 180 : -180) + current) / 360) * 360);
+	public void startAdjustment(double current, double setPoint) {
+		setPoint%=360;
+		setSetpoint((int) (((current - setPoint >= 0 ? 180 : -180) + current - setPoint) / 360) * 360 + setPoint);
 		enable();
 	}
 
