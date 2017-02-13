@@ -34,7 +34,7 @@ public class DriveSubsystem extends PIDSubsystem {
 	
 	
 	public void startAdjustment(double current) {
-		setSetpoint((int)(current/360)*360);
+		setSetpoint((int)((180+current)/360)*360);
 		enable();
 	}
 	
