@@ -7,29 +7,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AdjustByGyro extends Command{
 
-	public final double SENSOR_BUFFER = 50;
 	public AdjustByGyro() {
-		requires(Robot.drive);        
+		requires(Robot.drive);
+		// Makes command interruptible
 		setInterruptible(true);
 		
 	}
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void initialize() {
+		// Calibrates the turn angle
 		Robot.drive.startAdjustment(Robot.drive.gyro.getAngle(), SmartDashboard.getNumber("TurnAngle"));
-		Robot.drive.getPIDController().setPID(SmartDashboard.getDouble("P"), SmartDashboard.getDouble("I"), SmartDashboard.getDouble("D"));
+		// Sets PID of the PID controller to the values given on the SmartDashboard
+		Robot.drive.getPIDController().setPID(SmartDashboard.getNumber("P"), SmartDashboard.getNumber("I"), SmartDashboard.getNumber("D"));
 	}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		// System.out.println(Robot.drive.frontLeftMotor.getEncPosition());
+		// Inserts the current angle of the gyro onto the SmartDashboard
 		SmartDashboard.putNumber("GyroValue", Robot.drive.gyro.getAngle());
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// return Math.abs(Robot.drive.getPIDController().getAvgError()) <= SENSOR_BUFFER;
+		// Ends when the robot is at the desired angle
 		return Robot.drive.getPIDController().onTarget();
 	}
 

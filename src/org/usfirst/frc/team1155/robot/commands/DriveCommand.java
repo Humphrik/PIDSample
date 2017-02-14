@@ -16,7 +16,9 @@ public class DriveCommand extends Command {
     public DriveCommand(Joystick stick) {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drive);
+        // Initialize joystick used for setting speed.
         movementStick = stick;
+        // Makes command interruptible.
         setInterruptible(true);
     }
 
@@ -27,12 +29,15 @@ public class DriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	// Puts the current value of the gyro onto the Smart Dashboard
     	SmartDashboard.putNumber("GyroValue", Robot.drive.gyro.getAngle());
+    	// Rotates the robot; speed correlated with magnitude of joystick on the y axis
     	Robot.drive.setSpeed(-movementStick.getY());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	// Ghetto while(true){}
         return false;
     }
 
