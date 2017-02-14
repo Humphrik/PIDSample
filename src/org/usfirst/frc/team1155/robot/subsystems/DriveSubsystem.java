@@ -20,43 +20,50 @@ public class DriveSubsystem extends PIDSubsystem {
 
 	public DriveSubsystem() {
 		super("Drive", 0.1, 0, 0.1);
+		// Constructor sets default P, I, D values.
 		frontLeftMotor = new CANTalon(0);
 		frontRightMotor = new CANTalon(1);
 		backRightMotor = new CANTalon(2);
 		backLeftMotor = new CANTalon(3);
+		// Initializes wheels.
 		LiveWindow.addActuator("Drive", "PIDSubsystem Controller", getPIDController());
+		// Used in test mode; not implemented yet
 		getPIDController().setContinuous(true);
+		// Sets value to singular setpoint
 		getPIDController().setPercentTolerance(20.0);
-		// frontLeftMotor.setEncPosition(0);
+		// 20% tolerable percent error.
 		gyro = new AnalogGyro(0);
 		gyro.reset();
+		// Initializes and reset gyro.
 	}
 
 	public void startAdjustment(double current, double setPoint) {
-		setPoint%=360;
+		// Enables PIDController with given setpoint.
+		setPoint %= 360;
+		// Sets angle to corresponding reference angle.
 		setSetpoint((int) (((current - setPoint >= 0 ? 180 : -180) + current - setPoint) / 360) * 360 + setPoint);
+		// Rounds difference of current and desired angle to nearest 360
+		// degrees, then adds the desired angle to make final set point.
 		enable();
 	}
 
 	public void endAdjustment() {
+		// Disable PID Controller
 		getPIDController().disable();
 	}
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 	}
 
 	@Override
 	protected double returnPIDInput() {
+		// Returns input to be used by the PIDController
 		return gyro.getAngle();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
+		// Set wheels to values given by PIDController
 		output *= 0.3;
 		frontLeftMotor.pidWrite(output);
 		frontRightMotor.pidWrite(output);
@@ -66,6 +73,7 @@ public class DriveSubsystem extends PIDSubsystem {
 	}
 
 	public void setSpeed(double speed) {
+		// Sets wheels to given speed.
 		frontLeftMotor.set(speed);
 		frontRightMotor.set(speed);
 		backRightMotor.set(speed);
@@ -73,6 +81,7 @@ public class DriveSubsystem extends PIDSubsystem {
 	}
 
 	public void resetGyro() {
+		// Resets gyro.
 		gyro.reset();
 	}
 }

@@ -33,10 +33,12 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = null;
+        
+        //Sets default values for Smart dashboard.
         SmartDashboard.putNumber("GyroValue", 0);
-        SmartDashboard.putDouble("P", 0.1);
-        SmartDashboard.putDouble("I", 0.0);
-        SmartDashboard.putDouble("D", 0.1);
+        SmartDashboard.putNumber("P", 0.1);
+        SmartDashboard.putNumber("I", 0.0);
+        SmartDashboard.putNumber("D", 0.1);
         SmartDashboard.putNumber("TurnAngle", 0);
     }
 	
@@ -62,6 +64,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        //Resets gyro and starts driving on enable.
         drive.resetGyro();
         DriveCommand dc = new DriveCommand(OI.stick);
         dc.start();
