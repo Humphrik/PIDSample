@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1155.robot;
 
-import org.usfirst.frc.team1155.robot.commands.AdjustByGyro;
+import org.usfirst.frc.team1155.robot.commands.AdjustBySensor;
 import org.usfirst.frc.team1155.robot.commands.DriveCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,7 +17,7 @@ public class OI {
 	public OI() {
 		stick = new Joystick(0);
 		// Joystick is in port 0 (change in port suggested).
-		new JoystickButton(stick, 3).whenPressed(new AdjustByGyro());
+		new JoystickButton(stick, 3).whenPressed(new AdjustBySensor());
 		// Hold to align.
 		new JoystickButton(stick, 3).whenReleased(new DriveCommand(stick));
 		// Release to drive.

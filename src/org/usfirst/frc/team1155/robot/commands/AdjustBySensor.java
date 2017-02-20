@@ -1,13 +1,14 @@
 package org.usfirst.frc.team1155.robot.commands;
 
 import org.usfirst.frc.team1155.robot.Robot;
+import org.usfirst.frc.team1155.robot.subsystems.DriveSubsystem.SensorMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AdjustByGyro extends Command{
+public class AdjustBySensor extends Command{
 
-	public AdjustByGyro() {
+	public AdjustBySensor() {
 		requires(Robot.drive);
 		// Makes command interruptible
 		setInterruptible(true);
@@ -16,15 +17,19 @@ public class AdjustByGyro extends Command{
 	@Override
 	protected void initialize() {
 		// Calibrates the turn angle
-		Robot.drive.startAdjustment(Robot.drive.gyro.getAngle(), SmartDashboard.getNumber("TurnAngle"));
+		if(Robot.drive.sensorMode == SensorMode.GYRO)
+			Robot.drive.startAdjustment(Robot.drive.gyro.getAngle(), SmartDashboard.getNumber("TurnAngle", 0));
+		else
+			Robot.drive.startAdjustment(Robot.drive.getEncDistance(), SmartDashboard.getNumber("DriveDistance", 0));
 		// Sets PID of the PID controller to the values given on the SmartDashboard
-		Robot.drive.getPIDController().setPID(SmartDashboard.getNumber("P"), SmartDashboard.getNumber("I"), SmartDashboard.getNumber("D"));
+		Robot.drive.getPIDController().setPID(SmartDashboard.getNumber("P", 0.1), SmartDashboard.getNumber("I", 0), SmartDashboard.getNumber("D", 0.1));
 	}
 
 	@Override
 	protected void execute() {
 		// Inserts the current angle of the gyro onto the SmartDashboard
 		SmartDashboard.putNumber("GyroValue", Robot.drive.gyro.getAngle());
+		SmartDashboard.putNumber("EncoderValue", Robot.drive.getEncDistance());
 	}
 
 	@Override

@@ -39,6 +39,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("I", 0.0);
         SmartDashboard.putNumber("D", 0.1);
         SmartDashboard.putNumber("TurnAngle", 0);
+        SmartDashboard.putString("Turning?", "true");
+        SmartDashboard.putNumber("DriveDistance", 0);
+        SmartDashboard.putNumber("EncoderValue", 0);
     }
 	
 	public void disabledPeriodic() {

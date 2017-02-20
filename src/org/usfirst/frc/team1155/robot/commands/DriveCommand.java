@@ -2,8 +2,9 @@
 package org.usfirst.frc.team1155.robot.commands;
 
 import org.usfirst.frc.team1155.robot.Robot;
-import org.usfirst.frc.team1155.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import org.usfirst.frc.team1155.robot.subsystems.DriveSubsystem.DriveMode;
+import org.usfirst.frc.team1155.robot.subsystems.DriveSubsystem.SensorMode;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +25,14 @@ public class DriveCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	if(SmartDashboard.getString("Turning?", "true").toLowerCase().equals("true")) {
+    		Robot.drive.sensorMode = SensorMode.GYRO;
+    		Robot.drive.driveMode = DriveMode.TURN;
+    	}
+    	else {
+    		Robot.drive.sensorMode = SensorMode.ENCODER;
+    		Robot.drive.driveMode = DriveMode.DRIVE;
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
